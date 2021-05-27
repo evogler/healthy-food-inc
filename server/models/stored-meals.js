@@ -8,7 +8,12 @@ const allMeals = fs.readFile(filename, { encoding: 'utf8' })
     return JSON.parse(res);
   });
 
-getMeals = ({ categoryName, subCategoryName, title, count = 5, offset = 0 } = {}) => {
+const categories = allMeals.then(meals => {
+
+});
+
+getMeals = ({ categoryName, subCategoryName, title, count = 12, offset = 0 } = {}) => {
+  console.log('getMeals count', count, 'title', title);
   return allMeals.then(meals => {
     if (categoryName) {
       categoryName = categoryName.toLowerCase();
@@ -25,7 +30,7 @@ getMeals = ({ categoryName, subCategoryName, title, count = 5, offset = 0 } = {}
     for (meal in meals) {
       delete meals[meal].productUrl;
     }
-    return meals.slice(offset, offset + count);
+    return meals.slice(offset, offset + Number(count));
   });
 }
 
